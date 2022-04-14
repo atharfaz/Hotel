@@ -1,18 +1,19 @@
 const {
     add,
     get,
+    getId,
     update,
-    del,
-    getId
-} = require('./kamarService.js');
+    del
+} = require('./PelangganService');
 
 module.exports = {
     controllerAdd: (req, res) => {
-        data_kamar = {
-            hargakamar: req.body.hargakamar,
-            status: req.body.status
+        data = {
+            nama_pelanggan: req.body.nama_pelanggan,
+            tagihan: req.body.tagihan,
+            alamat: req.body.alamat,
         }
-        add(data_kamar, (err, results) => {
+        add(data, (err, results) => {
             if (err) {
                 console.log(err)
                 return
@@ -37,13 +38,31 @@ module.exports = {
             }
         })
     },
-    controllerUpdate: (req, res) => {
-        const data_kamar = {
-            id_kamar: req.params.id_kamar,
-            hargakamar: req.body.hargakamar,
-            status: req.body.status
+    controllergetId: (req, res) => {
+        data = {
+            id_pelanggan: req.params.id_pelanggan
         }
-        update(data_kamar, (err, results) => {
+        getId(data, (err, result) => {
+            if (err) {
+                console.log(err)
+                return
+            } else {
+                return res.json({
+                    success: 1,
+                    data: result
+                })
+            }
+        })
+
+    },
+    controllerUpdate: (req, res) => {
+        const data = {
+            id_pelanggan: req.params.id_pelanggan,
+            nama_pelanggan: req.body.nama_pelanggan,
+            alamat: req.body.alamat,
+            tagihan: req.body.tagihan,
+        }
+        update(data, (err, results) => {
             if (err) {
                 console.log(err)
                 return
@@ -60,26 +79,9 @@ module.exports = {
             }
         })
     },
-    controllergetId: (req, res) => {
-        data = {
-            id_kamar: req.params.id_kamar
-        }
-        getId(data, (err, result) => {
-            if (err) {
-                console.log(err)
-                return
-            } else {
-                return res.json({
-                    success: 1,
-                    data: result
-                })
-            }
-        })
-
-    },
     controllerDelete: (req, res) => {
         data = {
-            id_kamar: req.params.id_kamar
+            id_pelanggan: req.params.id_pelanggan
         }
         del(data, (err, result) => {
             if (err) {
@@ -101,4 +103,3 @@ module.exports = {
     }
 
 }
-
